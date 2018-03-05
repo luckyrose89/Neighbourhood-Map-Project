@@ -1,6 +1,9 @@
 # Neighbourhood-Map-Project
 The Neighbourhood Map is Udacity's fifth project requirement in the Full Stack Web Development Nanodegree course. The objective of this project is to write a javascript program that adheres to MVC approach. This is done while employing jQuery Ajax calls for google Maps API and Foursquare API and the knockoutjs framework.
 
+## About the Application
+This application will reflect a few famous tourist spots in Udaipur, Rajasthan from India. The marker on click will open infowindows that contain information loaded from the foursquare API. There is also a wikipedia link directing users to wikipedia search result for that particular spot.
+
 ## Dependencies
 The dependencies used in this project have mostly been employed using their CDN link with the exception of knockoutJS. Following are the dependencies:
 
