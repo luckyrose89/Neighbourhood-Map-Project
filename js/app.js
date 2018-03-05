@@ -49,19 +49,19 @@ var populateInfoWindow = function(marker, infowindow) {
     }
 };
 
-// Model for rendering infowindows on click
-var renderInfo = function() {
-    populateInfoWindow(this, largeInfowindow);
-    this.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout((function() {
-        this.setAnimation(null);
-    }).bind(this), 1500);
-};
-
 var viewModel = function() {
     var self = this;
     this.markers = [];
     this.searchBar = ko.observable("");
+
+    // Function to render infowindows
+    this.renderInfo = function() {
+        populateInfoWindow(this, largeInfowindow);
+        this.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout((function() {
+            this.setAnimation(null);
+        }).bind(this), 1500);
+    };
 
     /* Initialize the map */
     this.initMap = function() {
@@ -93,7 +93,7 @@ var viewModel = function() {
             });
             marker.setMap(map);
             self.markers.push(marker);
-            marker.addListener('click', renderInfo);
+            marker.addListener('click', self.renderInfo);
             bounds.extend(marker.position);
         }
         map.fitBounds(bounds);
