@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +26,7 @@
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" data-bind="textInput: searchBar, valueUpdate: afterkeydown">
             </form>
             <ul class=" list-box" data-bind="foreach: searchFilterList">
-                <a href="#" class="text-white" data-bind="click: renderInfo">
+                <a href="#" class="text-white" data-bind="click: $parent.renderInfo">
                     <li class="list-item" data-bind="text: title"></li>
                 </a>
             </ul>
