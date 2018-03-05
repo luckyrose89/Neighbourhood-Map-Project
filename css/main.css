@@ -1,0 +1,22 @@
+html,
+body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    height: 100%;
+}
+
+.list-box {
+	margin-top: 15px;
+	padding-left: 0px;
+}
+
+.list-item {
+	list-style: none;
+	padding-bottom: 5px;
+	padding-left: 0;
+}

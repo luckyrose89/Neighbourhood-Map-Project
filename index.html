@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neighbourhood Map Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="navbar navbar-inverse bg-inverse justify-content-between">
+        <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand">Neighbourhood Map Application</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse flex-column mt-md-0 mt-4 pt-md-0 pt-4 container" id="navbarHeader">
+            <form class="form-inline ml-auto">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" data-bind="textInput: searchBar, valueUpdate: afterkeydown">
+            </form>
+            <ul class=" list-box" data-bind="foreach: searchFilterList">
+                <a href="#" class="text-white" data-bind="click: $parent.renderInfo">
+                    <li class="list-item" data-bind="text: title"></li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    <div class="continer-fluid h-100">
+        <div id="map">
+        </div>
+    </div>
+    <script src="js/dataModel.js"></script>
+    <script src="js/knockout-3.5.0beta.js"></script>
+    <script src="js/mapStyles.js"></script>
+    <script src="js/app.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwUro22Ic7uFj6iu00nqZe8pSUInUgQLo&v=3&callback=launchApp" onerror="errorMessage()">
+    </script>
+</body>
+
+</html>
