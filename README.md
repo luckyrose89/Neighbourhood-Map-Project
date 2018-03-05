@@ -39,3 +39,4 @@ In order to run this project on your local machine, please follow the following 
  - Clone this repository to your local machine.
  - Open the folder and click the index.html file to open in your browser.
 ## Live Version
+Check out the [live version](https://luckyrose89.github.io/Neighbourhood-Map-Project/) here.
