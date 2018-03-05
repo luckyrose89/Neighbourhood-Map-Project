@@ -7,62 +7,61 @@ var errorMessage = function errorAlert() {
     alert("Unable to load Google Maps API. Inconvenience is regretted!!");
 };
 
+// Model to populate infowindow
+var populateInfoWindow = function(marker, infowindow) {
+    if (infowindow.marker != marker) {
+        infowindow.marker = marker;
+        // Create an API call to Foursquare
+        // Create reference to marker titles for wikipedia URLs
+        self.markerName = marker.title;
+        infowindow.setContent('');
+        var clientId = "KJH15443VNKN2Q2X1X2UZAUXW0IBUMYNHLRCHSO2FBFCOSY1";
+        var client_secret = "Z1HMJKPCTLJEJPDO5MXXMD1JYWWD21NZPKURBHPV5T2TAIYM";
+        var api_url = 'https://api.foursquare.com/v2/venues/search?ll=' +
+            marker.lat + ',' + marker.lng + '&client_id=' + clientId +
+            '&client_secret=' + client_secret + '&query=' + marker.title +
+            '&v=20180305' + '&m=foursquare';
+
+        $.getJSON(api_url).done(function(marker) {
+            var data = marker.response.venues[0];
+            self.category = data.categories[0].name;
+            self.name = data.name;
+            self.address = data.location.formattedAddress[0];
+            self.infourl = 'https://en.wikipedia.org/wiki/' + self.markerName;
+            self.infoContent = '<div>' +
+                '<h5>' + self.name + '</h5>' +
+                '</div>' +
+                '<div class="category">' + self.category + '</div>' +
+                '<div>' + self.address + '</div>' +
+                '<div><a href="' + self.infourl + '">Know More</a></div>';
+
+            infowindow.setContent(self.infoContent);
+
+        }).fail(function() {
+            alert("An error occurred while loading the Foursquare API. Try reloading the page.");
+        });
+
+        infowindow.open(map, marker);
+        // Make sure the marker property is cleared if the infowindow is closed.
+        infowindow.addListener('closeclick', function() {
+            infowindow.setMarker = null;
+        });
+    }
+};
+
+// Model for rendering infowindows on click
+var renderInfo = function() {
+    populateInfoWindow(this, largeInfowindow);
+    this.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout((function() {
+        this.setAnimation(null);
+    }).bind(this), 1500);
+};
+
 var viewModel = function() {
     var self = this;
     this.markers = [];
     this.searchBar = ko.observable("");
-
-
-    // Function to populate infowindow
-    this.populateInfoWindow = function(marker, infowindow) {
-        if (infowindow.marker != marker) {
-            infowindow.marker = marker;
-            // Create an API call to Foursquare
-            // Create reference to marker titles for wikipedia URLs
-            self.markerName = marker.title;
-            infowindow.setContent('');
-            var clientId = "KJH15443VNKN2Q2X1X2UZAUXW0IBUMYNHLRCHSO2FBFCOSY1";
-            var client_secret = "Z1HMJKPCTLJEJPDO5MXXMD1JYWWD21NZPKURBHPV5T2TAIYM";
-            var api_url = 'https://api.foursquare.com/v2/venues/search?ll=' +
-                marker.lat + ',' + marker.lng + '&client_id=' + clientId +
-                '&client_secret=' + client_secret + '&query=' + marker.title +
-                '&v=20180305' + '&m=foursquare';
-
-            $.getJSON(api_url).done(function(marker) {
-                var data = marker.response.venues[0];
-                self.category = data.categories[0].name;
-                self.name = data.name;
-                self.address = data.location.formattedAddress[0];
-                self.infourl = 'https://en.wikipedia.org/wiki/' + self.markerName;
-                self.infoContent = '<div>' +
-                    '<h5>' + self.name + '</h5>' +
-                    '</div>' +
-                    '<div class="category">' + self.category + '</div>' +
-                    '<div>' + self.address + '</div>' +
-                    '<div><a href="' + self.infourl + '">Know More</a></div>';
-
-                infowindow.setContent(self.infoContent);
-
-            }).fail(function() {
-                alert("An error occurred while loading the Foursquare API. Try reloading the page.");
-            });
-
-            infowindow.open(map, marker);
-            // Make sure the marker property is cleared if the infowindow is closed.
-            infowindow.addListener('closeclick', function() {
-                infowindow.setMarker = null;
-            });
-        }
-    };
-
-    // Render infowindows on click
-    this.renderInfo = function() {
-        self.populateInfoWindow(this, largeInfowindow);
-        this.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout((function() {
-            this.setAnimation(null);
-        }).bind(this), 1500);
-    };
 
     /* Initialize the map */
     this.initMap = function() {
@@ -94,7 +93,7 @@ var viewModel = function() {
             });
             marker.setMap(map);
             self.markers.push(marker);
-            marker.addListener('click', self.renderInfo);
+            marker.addListener('click', renderInfo);
             bounds.extend(marker.position);
         }
         map.fitBounds(bounds);
