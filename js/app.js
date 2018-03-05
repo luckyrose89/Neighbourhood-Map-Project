@@ -1,11 +1,11 @@
-/* Create global variables accessible throught app */
+// Create global variables accessible throught app
 var map;
 var largeInfowindow;
 
-/* Create error message for maps API */
+// Create error message for maps API
 var errorMessage = function errorAlert() {
-    alert("Unable to load Google Maps API. Inconvenience is regretted!!")
-}
+    alert("Unable to load Google Maps API. Inconvenience is regretted!!");
+};
 
 var viewModel = function() {
     var self = this;
@@ -13,7 +13,7 @@ var viewModel = function() {
     this.searchBar = ko.observable("");
 
 
-    /* Function to populate infowindow*/
+    // Function to populate infowindow
     this.populateInfoWindow = function(marker, infowindow) {
         if (infowindow.marker != marker) {
             infowindow.marker = marker;
@@ -55,14 +55,14 @@ var viewModel = function() {
         }
     };
 
-    /* Render infowindows on click*/
+    // Render infowindows on click
     this.renderInfo = function() {
         self.populateInfoWindow(this, largeInfowindow);
         this.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout((function() {
             this.setAnimation(null);
         }).bind(this), 1500);
-    }
+    };
 
     /* Initialize the map */
     this.initMap = function() {
@@ -79,7 +79,7 @@ var viewModel = function() {
         largeInfowindow = new google.maps.InfoWindow();
         var bounds = new google.maps.LatLngBounds();
 
-        // Functionality to create a marker on the map
+        //Functionality to create a marker on the map
         // Import locations from dataModel.js
         var dataArray = mapMarkers;
         var marker;
@@ -101,7 +101,7 @@ var viewModel = function() {
     }
     this.initMap();
 
-    /* Function to filter and display search list */
+    //Function to filter and display search list
     this.searchFilterList = ko.computed(function() {
         var searchLocations = [];
         for (var i = 0; i < this.markers.length; i++) {
