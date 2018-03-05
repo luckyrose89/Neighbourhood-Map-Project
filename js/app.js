@@ -98,7 +98,7 @@ var viewModel = function() {
             bounds.extend(marker.position);
         }
         map.fitBounds(bounds);
-    }
+    };
     this.initMap();
 
     //Function to filter and display search list
@@ -117,7 +117,7 @@ var viewModel = function() {
         return searchLocations;
     }, this);
 
-}
+};
 
 function launchApp() {
     ko.applyBindings(new viewModel());
